@@ -17,7 +17,7 @@ var router=new VueRouter({
         {path:'/shopcar',component:ShopcarContainer},
         {path:'/search',component:SearchContainer},
         {path:'/home/newslist',component:NewsList},
-        {path:'/home/newslist/:id',component:Detail},
+        {path:'/home/newslist/:id?',component:Detail},
     ],
     linkActiveClass:'mui-active'//覆盖默认的高亮类
 })
