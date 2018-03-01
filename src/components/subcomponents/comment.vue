@@ -2,11 +2,11 @@
   <div class="cmt-container">
       <h3>发表评论</h3>
       <hr>
-      <textarea name="" id="" cols="30" rows="10" style="reszie:none" placeholder="最多支持100字" maxlength="100"></textarea>
-      <mt-button type="primary" size="large">发表评论</mt-button>
+      <textarea name="" id="" cols="30" rows="10" style="reszie:none" placeholder="最多支持100字" maxlength="100" v-model="content"></textarea>
+      <mt-button type="primary" size="large" @click="postDiscuss">发表评论</mt-button>
 
       <div class="cmt-list">
-          <div class="cmt-item" v-for="(item,i) in commentList" :key="item.add_time">
+          <div class="cmt-item" v-for="(item,i) in commentList" :key="i">
               <div class="cmt-title">
                   第{{i+1}}楼&nbsp;用户：{{item.user_name}}&nbsp;发表时间：{{item.add_time|dataFormat}}
               </div>
@@ -24,7 +24,8 @@ export default {
   data(){
       return{
           pageindex:1,
-          commentList:[]
+          commentList:[],
+          content:''
       }
   },
   props:["id"],
@@ -35,7 +36,7 @@ export default {
       getComment(){
           this.$http.get("http://vue.studyit.io/api/getcomments/"+this.id+"?pageindex="+this.pageindex).then(result=>{
               if(result.body.status===0){
-                 // console.log(result.body.message);
+                  console.log(result.body.message);
                 //   console.log(this.$route);
                 //this.commentList=result.body.message;
                 this.commentList=this.commentList.concat(result.body.message);
@@ -47,7 +48,30 @@ export default {
       getMore(){
           this.pageindex++;
           this.getComment();
-      }
+      },
+      postDiscuss(){
+          if(this.content.trim().length===0){
+              return Toast("评论不能为空");
+          }
+          this.$http.post("http://vue.studyit.io/api/postcomment/"+this.id,{content:this.content.trim()},{emulateJSON: true}).then(result=>{
+              if(result.body.status===0){
+                //   console.log(this.discuss)
+                    this.commentList.unshift({
+                        content:this.content,
+                        user_name:'匿名用户',
+                        add_time:new Date()
+                    })
+                    this.content=""
+                  //console.log(this.commentList);
+              }else{
+                  Toast("评论信息获取失败");
+              }
+          })
+      },
+    //   updated(){
+    //     this.getComment();
+        
+    //   }
   }
 }
 </script>
