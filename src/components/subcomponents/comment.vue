@@ -36,7 +36,7 @@ export default {
       getComment(){
           this.$http.get("http://vue.studyit.io/api/getcomments/"+this.id+"?pageindex="+this.pageindex).then(result=>{
               if(result.body.status===0){
-                  console.log(result.body.message);
+                  //console.log(result.body.message);
                 //   console.log(this.$route);
                 //this.commentList=result.body.message;
                 this.commentList=this.commentList.concat(result.body.message);
