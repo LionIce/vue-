@@ -24,15 +24,19 @@ export default {
     height: 200px;
     .mint-swipe-item{
         text-align: center;
-      img{
-        //width: 100%;
+      .imgimg{
+        width: 100%;
         height: 100%;
       }   
+      .srcimg{
+       // width: 100%;
+        height: 100%;
+      }
     }
   }
-  .full{
-      width: 100%;
-  }
+  // .full{
+  //     width: 100%;
+  // }
 </style>
 
 

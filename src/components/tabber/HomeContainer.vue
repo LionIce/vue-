@@ -1,7 +1,7 @@
 <template>
   <div>
       <!-- 轮播图组件区 -->
-      <swiper :lunbotuList="lunbotuList" :isfull="true"></swiper>
+      <swiper :lunbotuList="lunbotuList"></swiper>
 
       <ul class="mui-table-view mui-grid-view mui-grid-9">
           <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">

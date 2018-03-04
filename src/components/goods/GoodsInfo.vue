@@ -25,7 +25,7 @@
                     <p class="price">
                         市场价:<del>￥{{item.market_price}}</del>&nbsp;&nbsp;销售价:<span class="now_price">￥{{item.sell_price}}</span>
                     </p>
-                    <p>购买数量:<numbox @getcount="getSelectCount"></numbox></p>
+                    <p>购买数量:<numbox @getcount="getSelectCount" :maxt="item.stock_quantity"></numbox></p>
                     <p>
                         <mt-button type="primary" size="small">立即购买</mt-button>
                         <mt-button type="danger" size="small" @click="addToShopCar">加入购物车</mt-button>
@@ -61,7 +61,7 @@ export default {
       return {
           id:this.$route.params.id,
           lunbotuList:[],
-          goodsInfo:[],
+          goodsInfo:{},
           ballflag:false,
           selectCount:1
       }
@@ -96,6 +96,15 @@ export default {
       addToShopCar(){
           this.ballflag = !this.ballflag;
           //console.log(this.$refs)
+          var goodsinfo={
+              id:this.id,
+              count:this.selectCount,
+              price: this.goodsInfo[0].sell_price,
+              selected:true
+          }
+          //调用store中的mutations来将商品数据加入购物车
+          this.$store.commit('addToCar',goodsinfo);
+            // console.log(goodsinfo)
       },
       beforeEnter: function(el) {
         el.style.transform = "translate(0,0)";
@@ -119,6 +128,7 @@ export default {
       },
       getSelectCount(count){
           this.selectCount=count;
+          //console.log(this.selectCount)
       }
     },
     components:{

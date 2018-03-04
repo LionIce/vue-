@@ -12,19 +12,24 @@ import mui from '../../lib/mui/js/mui.min.js'
 export default {
   mounted(){
     mui(".mui-numbox").numbox();
+    console.log(11,this.maxt)
+    mui(".mui-numbox").numbox().setOption("max",this.maxt);
   },
   methods:{
     countChanged(){
-     // console.log(this.$refs.numbox.value)
+    //  console.log(this.$refs.numbox.value)
      this.$emit("getcount",parseInt(this.$refs.numbox.value));
     }
   },
-  props:['max'],
+  props:["maxt"],
   watch:{
-    max:function(newVal,oldVal){
+    'maxt':function(newVal,oldVal){
+      console.log(1111111111,newVal);
       mui(".mui-numbox").numbox().setOption("max",newVal);
+      
     }
   }
+  
 }
 </script>
 <style lang="scss" scoped>
